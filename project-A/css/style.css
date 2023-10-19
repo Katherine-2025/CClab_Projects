@@ -1,10 +1,10 @@
-body{
+body {
     background-color: black;
+
 }
+
 #myContainer {
     position: absolute;
-    left: 100px;
-    top: 100px;
-  }
-  
-  
+    left: calc(50% - 300px);
+    top: calc(50% - 150px);
+}

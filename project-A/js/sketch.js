@@ -1,23 +1,19 @@
-function setup() {
-  let canvas = createCanvas(400, 400);
-  canvas.parent("myContainer");
-}
-
 let shiftDay = false;
 function setup() {
-  createCanvas(600, 400);
+  let canvas = createCanvas(600, 400);
+  canvas.parent("myContainer");
   //background(0, 0, 50);
   setupSky();
 }
 
 function draw() {
-  if(shiftDay == false){ //at night
-     background(0, 0, 50, 10); // (R, G, B, A:10)
-  } else{
+  if (shiftDay == false) { //at night
+    background(0, 0, 50, 10); // (R, G, B, A:10)
+  } else {
     background(255, 255, 255);
   }
-  
-  if(shiftDay == false){ //at night
+
+  if (shiftDay == false) { //at night
     drawSky();
   }
   let freq, amp;
@@ -26,18 +22,18 @@ function draw() {
   amp = 100;
   let cosValueX = cos(freq) * amp;
   //
-  let sinValueY = sin(freq) * amp/2;
+  let sinValueY = sin(freq) * amp / 2;
 
-  let x1 = width/2 + cosValueX; // ***
+  let x1 = width / 2 + cosValueX; // ***
   let y1 = height / 4 + sinValueY; // ***
   let dia1 = 80;
-  if(shiftDay == false){ //at night
+  if (shiftDay == false) { //at night
     fill(255, 255, 150);
-  } else{
+  } else {
     fill(255, 0, 0);
   }
   circle(x1, y1, dia1);
- 
+
   for (let x = 0; x < width; x++) {
     freq = x * 0.015 + frameCount * 0.01; // pos * adj + time * adj
     amp = map(mouseY, 0, width, 100, 10);  // ***
@@ -62,7 +58,7 @@ let gRange1 = 158;
 let gRange2 = 191;
 let bRange1 = 52;
 let bRange2 = 70;
- 
+
 function setupSky() {
   posX = 0;
   posY = 0;
@@ -87,34 +83,34 @@ function drawSky() {
     posXSpeed = posXSpeed * -1;
     dia = random(10, 30);
   }
-  if (posY < 0 || posY > height/2) {
+  if (posY < 0 || posY > height / 2) {
     posYSpeed = posYSpeed * -1;
     dia = random(10, 30);
   }
 
-  
+
   posX = random(width);
-  posY = random(height/2);
-  
+  posY = random(height / 2);
+
   let r = map(posX, 0, width, rRange1, rRange2);
-  let g = map(posY, 0, height , gRange1, gRange2);
+  let g = map(posY, 0, height, gRange1, gRange2);
   let b = map(posX, 0, width, bRange1, bRange2);
 
   // display
-  
+
   noStroke();
   fill(r + random(-5, 5), g + random(-5, 5), b + random(-5, 5));
   circle(posX, posY, dia + random(1, 5));
-    circle(posX + random(-100, 100), posY + random(-100, 100), dia + random(1, 5));
+  circle(posX + random(-100, 100), posY + random(-100, 100), dia + random(1, 5));
 }
 
 function keyPressed() {
-  
-  if(key == "d"){
+
+  if (key == "d") {
     shiftDay = true;
   }
-  if(key == "b"){
+  if (key == "b") {
     shiftDay = false;
-     
+
   }
 }
