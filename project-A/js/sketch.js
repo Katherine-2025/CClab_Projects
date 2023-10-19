@@ -56,12 +56,12 @@ let posX, posY, dia;
 let aSpeed, sSpeed;
 let r, g, b;
 
-let rRange1 = 200;
+let rRange1 = 255;
 let rRange2 = 255;
-let gRange1 = 0;
-let gRange2 = 255;
-let bRange1 = 0;
-let bRange2 = 255;
+let gRange1 = 158;
+let gRange2 = 191;
+let bRange1 = 52;
+let bRange2 = 70;
  
 function setupSky() {
   posX = 0;
@@ -98,7 +98,7 @@ function drawSky() {
   
   let r = map(posX, 0, width, rRange1, rRange2);
   let g = map(posY, 0, height , gRange1, gRange2);
-  //let b = map(posX, 0, width, bRange1, bRange2);
+  let b = map(posX, 0, width, bRange1, bRange2);
 
   // display
   
@@ -109,13 +109,8 @@ function drawSky() {
 }
 
 function keyPressed() {
-  if (key == " ") {
-    rRange1 = random(0);
-    rRange2 = random(100);
-    bRange1 = random(100);
-    bRange2 = random(255);
-  }
-  if(key == "a"){
+  
+  if(key == "d"){
     shiftDay = true;
   }
   if(key == "b"){
@@ -123,7 +118,3 @@ function keyPressed() {
      
   }
 }
-
-
-
-
