@@ -209,6 +209,9 @@ function keyPressed() {
   if (key == " ") {
     btn = true;
     music.stop();
+    if (scene == 3) {
+      window.location.reload()
+    }
   }
 }
 
