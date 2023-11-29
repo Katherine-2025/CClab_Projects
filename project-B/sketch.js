@@ -75,6 +75,15 @@ function draw() {
     scale(v);
     drawScene1();
     pop();
+    push();
+    textSize(20);
+    textAlign(CENTER);
+    fill(255);
+    stroke(240);
+    strokeWeight(4);
+    text("When we all fall asleep,where do we go?", width / 2, 270);
+    pop();
+
   } else if (scene == 2) {
     background(255);
     image(bgImg, 0, 0);
