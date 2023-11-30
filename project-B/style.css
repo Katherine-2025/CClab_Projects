@@ -4,7 +4,28 @@ body {
   padding: 0;
 }
 
-canvas {
-  display: block;
 
+#title {
+  margin: auto;
+  padding: 10px;
+  text-align: center;
+  color: rgb(6, 32, 110);
+}
+
+.wrap {
+  display: flex;
+}
+
+#p5-container {
+  display: block;
+  border: 1px solid rgb(17, 16, 16);
+  padding: 16px;
+  position: relative;
+  width: 632px;
+  box-sizing: border-box;
+}
+
+.left,
+.right {
+  flex: 1;
 }

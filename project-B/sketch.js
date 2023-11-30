@@ -15,26 +15,23 @@ let offset = 0;
 let lineColor;
 let bgImg;
 
-let cols, rows;
-let scl = 20;
-let zoff = 0;
-let particles = [];
-let flowfield;
-let pg;
+let points2 = [];
+let bgImg3;
+
 
 function preload() {
   img = loadImage("assets/scene1.jpg");
   music = loadSound("assets/overwhelm.m4a");
   music2 = loadSound("assets/calm.m4a");
-  music3 = loadSound("assets/calm.m4a");
+  music3 = loadSound("assets/dreamcore2.m4a");
   bgImg = loadImage("assets/bg1.jpg", () => {
-    bgImg.resize(400, 400);
+    bgImg.resize(600, 600);
   });
 }
 
 function setup() {
-  createCanvas(400, 400);
-
+  let canvas = createCanvas(600, 600);
+  canvas.parent("p5-container");
   background(255);
   scene1Setup();
   scene2Setup();
@@ -55,17 +52,9 @@ function scene2Setup() {
 }
 
 function scene3Setup() {
-  cols = floor(width / scl);
-  rows = floor(height / scl);
-
-  flowfield = new Array(cols * rows);
-
-  for (let i = 0; i < 1000; i++) {
-    particles[i] = new Particle();
-  }
-
-  pg = createGraphics(width, height);
-  pg.background(255, 0);
+  bgImg3 = loadImage('assets/scene3.jpg', () => {
+    bgImg3.resize(600, 600);
+  })
 }
 
 function draw() {
@@ -81,7 +70,7 @@ function draw() {
     fill(255);
     stroke(240);
     strokeWeight(4);
-    text("When we all fall asleep,where do we go?", width / 2, 270);
+    text("When we all fall asleep,where do we go?", width / 2, 400);
     pop();
 
   } else if (scene == 2) {
@@ -124,7 +113,8 @@ function draw() {
 
 function initScene() {
   button1 = createButton("calm");
-  button1.position(16, 16);
+  button1.parent('p5-container')
+  button1.position(16, 76);
   button1.mousePressed(() => {
     music2.loop();
     music.stop();
@@ -132,7 +122,8 @@ function initScene() {
     lineColor = color(25, 25, 255);
   });
   button2 = createButton("overwhelm");
-  button2.position(66, 16);
+  button2.parent('p5-container')
+  button2.position(66, 76);
   button2.mousePressed(() => {
     music.loop();
     music2.stop();
@@ -142,33 +133,20 @@ function initScene() {
 }
 
 function drawScene3() {
-  background(0, 0, 255);
 
-  if (frameCount % 10 == 0) {
-    let yoff = 0;
-    for (let y = 0; y < rows; y++) {
-      let xoff = 0;
-      for (let x = 0; x < cols; x++) {
-        let index = x + y * cols;
-        let angle = noise(xoff, yoff, zoff) * TWO_PI * 2;
-        let v = p5.Vector.fromAngle(angle);
-        v.setMag(1);
-        flowfield[index] = v;
-        xoff += 0.1;
-      }
-      yoff += 0.1;
-    }
-    zoff += 0.01;
+  background(220);
+  image(bgImg3, 0, 0)
+
+  stroke(0);
+  strokeWeight(3);
+  noFill();
+  beginShape();
+  for (let i = 0; i < points2.length; i++) {
+    let p = points2[i];
+    p.move();
+    vertex(p.x, p.y);
   }
-
-  for (let i = 0; i < particles.length; i++) {
-    particles[i].follow(flowfield);
-    particles[i].update();
-    particles[i].edges();
-    particles[i].show();
-  }
-
-  image(pg, 0, 0);
+  endShape();
 }
 
 function drawScene2() {
@@ -227,6 +205,9 @@ function keyPressed() {
 function mouseDragged() {
   if (scene == 2) {
     points.push(new KPoint(mouseX, mouseY));
+  } else if (scene == 3) {
+    let p = new KPoint2(mouseX, mouseY);
+    points2.push(p);
   }
 }
 
@@ -237,7 +218,7 @@ class KPoint {
   }
 
   getX() {
-    return this.x + random(-offset, offset);
+    return this.x + random(0, 1);
   }
 
   getY() {
@@ -245,57 +226,16 @@ class KPoint {
   }
 }
 
-class Particle {
-  constructor() {
-    this.pos = createVector(random(width), random(height));
-    this.vel = createVector();
-    this.acc = createVector();
-    this.maxspeed = 0.1;
-
-    this.color = color(135, 206, 250);
+class KPoint2 {
+  constructor(startX, startY) {
+    this.x = startX;
+    this.y = startY;
+    this.xSpeed = random(-1, 1);;
+    this.ySpeed = random(-1, 1);
   }
-
-  follow(flowfield) {
-    let x = floor(this.pos.x / scl);
-    let y = floor(this.pos.y / scl);
-    let index = x + y * cols;
-    let force = flowfield[index];
-    this.applyForce(force);
-  }
-
-  update() {
-    this.vel.add(this.acc);
-    this.vel.limit(this.maxspeed);
-    this.pos.add(this.vel);
-    this.acc.mult(0);
-  }
-
-  applyForce(force) {
-    this.acc.add(force);
-  }
-
-  edges() {
-    if (this.pos.x > width) this.pos.x = 0;
-    if (this.pos.x < 0) this.pos.x = width;
-    if (this.pos.y > height) this.pos.y = 0;
-    if (this.pos.y < 0) this.pos.y = height;
-  }
-
-  show() {
-    let d = dist(this.pos.x, this.pos.y, mouseX, mouseY);
-    if (d < 50) {
-      this.color = color(173, 216, 230, 5);
-    } else {
-      this.color = color(255, 255, 255, 5);
-    }
-    pg.strokeWeight(2);
-
-    if (random(1) < 0.01) {
-      pg.stroke(255, 255, 255, 200);
-      pg.strokeWeight(1);
-    } else {
-      pg.stroke(this.color);
-    }
-    pg.ellipse(this.pos.x, this.pos.y, 2, 2);
+  // actions
+  move() {
+    this.x += this.xSpeed;
+    this.y += this.ySpeed;
   }
 }
