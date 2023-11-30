@@ -70,7 +70,7 @@ function draw() {
     fill(255);
     stroke(240);
     strokeWeight(4);
-    text("When we all fall asleep,where do we go?", width / 2, 400);
+    text("When we all fall asleep,where do we go?", width / 2, 350);
     pop();
 
   } else if (scene == 2) {
@@ -156,7 +156,7 @@ function drawScene2() {
     fft.analyze();
     let amp1 = fft.getEnergy(20, 200);
     // 100 ~ 200
-    let sw = map(amp1, 100, 180, 5, 10);
+    let sw = map(amp1, 100, 180, 8, 15);
     strokeWeight(sw);
   }
 
@@ -218,7 +218,7 @@ class KPoint {
   }
 
   getX() {
-    return this.x + random(0, 1);
+    return this.x + random(-offset, offset);
   }
 
   getY() {
@@ -230,8 +230,8 @@ class KPoint2 {
   constructor(startX, startY) {
     this.x = startX;
     this.y = startY;
-    this.xSpeed = random(-1, 1);;
-    this.ySpeed = random(-1, 1);
+    this.xSpeed = random(-0.5, 0.5);;
+    this.ySpeed = random(-0.5, 0.5);
   }
   // actions
   move() {
