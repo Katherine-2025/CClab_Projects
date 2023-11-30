@@ -230,7 +230,7 @@ class KPoint2 {
   constructor(startX, startY) {
     this.x = startX;
     this.y = startY;
-    this.xSpeed = random(-0.5, 0.5);;
+    this.xSpeed = random(-0.5, 0.5);
     this.ySpeed = random(-0.5, 0.5);
   }
   // actions

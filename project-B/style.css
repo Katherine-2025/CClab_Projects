@@ -4,6 +4,9 @@ body {
   padding: 0;
 }
 
+body {
+  background-image: url("assets/bg2.jpg");
+}
 
 #title {
   margin: auto;
