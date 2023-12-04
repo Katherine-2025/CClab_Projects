@@ -38,7 +38,14 @@ body {
   flex: 1;
 }
 
-.p5-btn {
+.p5-btn1 {
+  color: white;
+  background-color: black;
+  border-color: antiquewhite;
+  border-width: 1px;
+}
+
+.p5-btn2 {
   color: white;
   background-color: black;
   border-color: antiquewhite;

@@ -114,7 +114,7 @@ function draw() {
 function initScene() {
   button1 = createButton("calm");
   button1.parent('p5-container');
-  button1.class("p5-btn");
+  button1.class("p5-btn1");
   button1.position(16, 76);
   button1.mousePressed(() => {
     music2.loop();
@@ -124,6 +124,7 @@ function initScene() {
   });
   button2 = createButton("overwhelm");
   button2.parent('p5-container')
+  button2.class("p5-btn2");
   button2.position(66, 76);
   button2.mousePressed(() => {
     music.loop();
