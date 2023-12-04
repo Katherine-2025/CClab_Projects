@@ -1,0 +1,46 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.bg-img {
+  background-image: url("assets/bg2.jpg");
+}
+
+.bg-color {
+  background-color: black;
+  color: antiquewhite;
+}
+
+#title {
+  margin: auto;
+  padding: 10px;
+  text-align: center;
+  color: rgb(6, 32, 110);
+}
+
+.wrap {
+  display: flex;
+}
+
+#p5-container {
+  display: block;
+  /* border: 1px solid rgb(17, 16, 16); */
+  padding: 16px;
+  position: relative;
+  width: 632px;
+  box-sizing: border-box;
+}
+
+.left,
+.right {
+  flex: 1;
+}
+
+.p5-btn {
+  color: white;
+  background-color: black;
+  border-color: antiquewhite;
+  border-width: 1px;
+}
